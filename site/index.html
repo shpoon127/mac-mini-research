@@ -18,6 +18,13 @@
             font-size: 0.75rem; background: #eef; color: #225; }
   .empty { padding: 1rem; background: #f7f7f7; border-radius: 6px; color: #666; }
   canvas { max-height: 320px; }
+  .news { list-style: none; padding: 0; margin: 0; }
+  .news li { padding: 0.6rem 0; border-bottom: 1px solid #eee; }
+  .news a { color: #225; text-decoration: none; }
+  .news a:hover { text-decoration: underline; }
+  .news .meta { display: block; font-size: 0.75rem; color: #888; margin-top: 0.2rem; }
+  .badge { display: inline-block; font-size: 0.7rem; padding: 0 0.4rem;
+           background: #fef3c7; color: #92400e; border-radius: 3px; margin-right: 0.3rem; }
 </style>
 </head>
 <body>
@@ -30,9 +37,62 @@
   <h2>価格推移 (日次最安値)</h2>
   <canvas id="chart"></canvas>
 
+  <h2>在庫数推移 (日次件数)</h2>
+  <p class="muted">在庫枯渇のトレンド把握用。0 = その日その条件の出品なし。</p>
+  <canvas id="stockChart"></canvas>
+
+  <h2>関連ニュース</h2>
+  <p class="muted" id="newsMeta"></p>
+  <ul id="news" class="news"></ul>
+
   <p class="muted" id="generated"></p>
 
 <script>
+const PALETTE = {
+  apple_refurb_24GB: '#0a84ff', apple_refurb_32GB: '#3399ff',
+  iosys_24GB:        '#ff6b35', iosys_32GB:        '#ffa07a',
+  amazon_24GB:       '#34c759', amazon_32GB:       '#7fdc8a',
+};
+
+function buildDatasets(seriesObj) {
+  const datasets = [];
+  const allDates = new Set();
+  for (const src of Object.keys(seriesObj)) {
+    for (const mem of Object.keys(seriesObj[src])) {
+      const points = seriesObj[src][mem];
+      for (const d of Object.keys(points)) allDates.add(d);
+      const label = `${src} ${mem}`;
+      const color = PALETTE[`${src}_${mem}`] || '#888';
+      datasets.push({ label, points, borderColor: color, backgroundColor: color,
+                      tension: 0.2, spanGaps: true });
+    }
+  }
+  const dates = [...allDates].sort();
+  for (const ds of datasets) {
+    ds.data = dates.map(d => ds.points[d] ?? null);
+    delete ds.points;
+  }
+  return { dates, datasets };
+}
+
+function renderNews(news) {
+  const root = document.getElementById('news');
+  const meta = document.getElementById('newsMeta');
+  const items = (news && news.items) || [];
+  if (!items.length) {
+    root.innerHTML = '<li class="empty">取得済みのニュースはありません</li>';
+    return;
+  }
+  meta.textContent = news.fetched_at ? `ニュース更新: ${news.fetched_at}` : '';
+  root.innerHTML = items.map(n => {
+    const date = n.published ? n.published.slice(0, 10) : '';
+    const src = n.source ? ` · ${n.source}` : '';
+    const q = n.query ? `<span class="badge">${n.query}</span>` : '';
+    return `<li>${q}<a href="${n.url}" target="_blank" rel="noopener">${n.title}</a>
+            <span class="meta">${date}${src}</span></li>`;
+  }).join('');
+}
+
 async function main() {
   const data = await fetch('data.json').then(r => r.json());
   document.getElementById('today').textContent = data.today ? `(${data.today})` : '';
@@ -58,42 +118,31 @@ async function main() {
       <tbody>${rows}</tbody></table>`;
   }
 
-  // chart: build datasets per (source, memory)
-  const series = data.series || {};
-  const datasets = [];
-  const palette = {
-    apple_refurb_24GB: '#0a84ff', apple_refurb_32GB: '#3399ff',
-    iosys_24GB:        '#ff6b35', iosys_32GB:        '#ffa07a',
-    amazon_24GB:       '#34c759', amazon_32GB:       '#7fdc8a',
-  };
-  const allDates = new Set();
-  for (const src of Object.keys(series)) {
-    for (const mem of Object.keys(series[src])) {
-      const points = series[src][mem];
-      for (const d of Object.keys(points)) allDates.add(d);
-      const label = `${src} ${mem}`;
-      const color = palette[`${src}_${mem}`] || '#888';
-      datasets.push({
-        label, points,
-        borderColor: color, backgroundColor: color, tension: 0.2, spanGaps: true,
-      });
-    }
-  }
-  const dates = [...allDates].sort();
-  for (const ds of datasets) {
-    ds.data = dates.map(d => ds.points[d] ?? null);
-    delete ds.points;
-  }
-
+  // price chart
+  const price = buildDatasets(data.series || {});
   new Chart(document.getElementById('chart'), {
     type: 'line',
-    data: { labels: dates, datasets },
+    data: { labels: price.dates, datasets: price.datasets },
     options: {
       responsive: true,
       interaction: { mode: 'index', intersect: false },
       scales: { y: { ticks: { callback: v => '¥' + v.toLocaleString() } } },
     },
   });
+
+  // stock-count chart
+  const stock = buildDatasets(data.stock || {});
+  new Chart(document.getElementById('stockChart'), {
+    type: 'line',
+    data: { labels: stock.dates, datasets: stock.datasets },
+    options: {
+      responsive: true,
+      interaction: { mode: 'index', intersect: false },
+      scales: { y: { beginAtZero: true, ticks: { precision: 0 } } },
+    },
+  });
+
+  renderNews(data.news);
 }
 main();
 </script>

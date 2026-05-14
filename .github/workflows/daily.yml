@@ -51,6 +51,11 @@ jobs:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         run: uv run tracker notify
 
+      - name: Fetch news (Google News RSS)
+        if: github.event.inputs.test_notify != 'true'
+        run: uv run tracker news
+        continue-on-error: true
+
       - name: Render dashboard
         if: github.event.inputs.test_notify != 'true'
         run: uv run tracker render

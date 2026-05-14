@@ -2,5 +2,228 @@
   "generated_at": "2026-05-14T16:35:18+00:00",
   "today": "2026-05-14",
   "listings": [],
-  "series": {}
+  "series": {},
+  "stock": {},
+  "news": {
+    "fetched_at": "2026-05-14T17:08:01+00:00",
+    "queries": [
+      "Mac mini M4 在庫",
+      "Mac mini 値上げ",
+      "Mac mini 価格改定",
+      "Mac mini M4",
+      "Apple 整備済 Mac mini"
+    ],
+    "items": [
+      {
+        "title": "ORICO Minimate｜Mac mini M4専用 SSD拡張＋5-in-1オーディオハブを発表 最大8TB NVMe SSD・40Gbps転送・プロ仕様オーディオ入出力を1台に集約 - PR TIMES",
+        "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE5uTFNqcW9ma1g0bjVYbjF6OW5rN3pibW1WbE1RbTEwZGJVUmIzNTFPdHlITE9FdlJhV3BReXkzM2xOYWZ4enB4cjZfUWdZS3o5djRxTDhoNU0zeEF2VEo1WU9kb1FGdGFmeFE?oc=5",
+        "source": "PR TIMES",
+        "published": "2026-05-13T08:56:41+00:00",
+        "query": "Mac mini M4"
+      },
+      {
+        "title": "Apple（Mac/iPad）の整備済み商品まとめ - ゴリミー",
+        "url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE9QMGR4bWQ0aVExcVpkNHQ4bS04Q1k5TFF4cUs2cGE0dkRWZ1NQeEd1STZwSnI0M3oyR2FLaUVQTXFBUmFDRUxpVVppM09Xa00?oc=5",
+        "source": "ゴリミー",
+        "published": "2026-05-12T07:00:00+00:00",
+        "query": "Apple 整備済 Mac mini"
+      },
+      {
+        "title": "最新モデル不要なら狙い目、初代Apple Studio Displayが整備済で186,800円〜 - ゴリミー",
+        "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE5RZ1dvNHFYelFsSzk4dVZPOEJNY0pwX3pJT2JCV0JuN0d1WjBvNHl5N1ZoMlJnWnU1Y2dDSkNMMGlSNVN5OVE3cW5jYkJoSDdmSlBTTFRvN2w?oc=5",
+        "source": "ゴリミー",
+        "published": "2026-05-12T05:54:00+00:00",
+        "query": "Apple 整備済 Mac mini"
+      },
+      {
+        "title": "入手困難なM4 Mac miniが整備済製品に復活！80,800円から狙えるチャンス到来 - ゴリミー",
+        "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE1hNU5kQmZfanNvNzhGQTFSY1AxZlViUGsyOUVGNWlOSTFseU1MS052cUdQRmpSWDlNRDUwVkNqOHFwb3FVOGtTcmVLeU1BTk1COWM1YTB6bVk?oc=5",
+        "source": "ゴリミー",
+        "published": "2026-05-12T02:46:42+00:00",
+        "query": "Mac mini M4"
+      },
+      {
+        "title": "【西田宗千佳のイマトミライ】Switch 2値上げからMac mini不足まで 「AIエージェント」シフトと演算爆発 | チバテレ＋プラス - 千葉テレビ放送",
+        "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE1CcUxqMmc3cmw2X1FEbzd5RW41c2YteHNYRVdHd2hGb0tjUmdSdEthb0M1UWdXTW1qQ09uSVBuNWY2NHg3bGgxTnFmMnprblgxZ0g0WXJ0VnZNNFhxampN0gFkQVVfeXFMTTFpbl9JR1dqMDBYaTQwSjI1S29FR2lrN0c3emVYU2xPZkNtdEZCSHc4Z0VUbkxibHpwRWU0dHdTQ2hEd003alI4Q3RIUFJtaFRkcXkwemJ4bExiNDVxUkhXYkFTRw?oc=5",
+        "source": "千葉テレビ放送",
+        "published": "2026-05-11T02:55:27+00:00",
+        "query": "Mac mini 値上げ"
+      },
+      {
+        "title": "Switch 2値上げからMac mini不足まで 「AIエージェント」シフトと演算爆発【西田宗千佳のイマトミライ】 - Impress Watch",
+        "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE44d3ZzZEtRUnJ0OVJoaENnNjJpZmY2Q0VublJ6S0pHTHh4SlR2REg0UmJkQ1I2V1RVOXliZVBqYnlwekkyWnA1YWt0VkowbldnUTZjWlpabzRUZHg2ZGhUSDVrUGxUMHh4WlNldFRhd3o5UQ?oc=5",
+        "source": "Impress Watch",
+        "published": "2026-05-10T23:20:00+00:00",
+        "query": "Mac mini 値上げ"
+      },
+      {
+        "title": "アップル、端末値上げの可能性 メモリコスト「大幅上昇」を警告 - ASCII.jp",
+        "url": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE5JNl9qRkE4NnRSbW5ENmZrSFprUFYzSEFhZzRITnZIN0N0c0VNeHdldWZ1b25lNHhlS3BzZXBveTFEb0dFd3U3Mld6MXpOSkI5QXVYZA?oc=5",
+        "source": "ASCII.jp",
+        "published": "2026-05-08T11:00:00+00:00",
+        "query": "Mac mini 値上げ"
+      },
+      {
+        "title": "さらば9万円台のMac mini。256GB構成が消失、最安で12万4800円から - ギズモード・ジャパン",
+        "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE5BMENab0hDSDBhVlVIbkNyWVBEV2VfNmRTZUdKc1FvcWVGOFlGRWdMQ2lNM3RtZHQ4d0JlNDZwWlJSeTBaQlRqZ0lNYktkc3dSTlctQkVpMFFrR2puekVV?oc=5",
+        "source": "ギズモード・ジャパン",
+        "published": "2026-05-08T07:00:00+00:00",
+        "query": "Mac mini 値上げ"
+      },
+      {
+        "title": "Apple、一部Macで「大容量メモリ構成」削除 世界的なメモリ不足で Mac Studioは最大96GBに制限 - ITmedia",
+        "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE1GcUxkVE11VWJRRTkzWHp2Z1BCemtMSkdEYXQ0ZURmcXBpaDdicDJ2Tl9ZQ0hUNDZITUwzcGRlWjdqeVNUcjNMQUYyc1I1TjNwWUFMS1BYdFh0X2J0R0VjS1pDbVVaZmFZVkhoUQ?oc=5",
+        "source": "ITmedia",
+        "published": "2026-05-07T08:15:00+00:00",
+        "query": "Mac mini 価格改定"
+      },
+      {
+        "title": "AppleがMac miniとStudioのRAM構成をさらに削減 - iPhone Mania - iPhone Mania",
+        "url": "https://news.google.com/rss/articles/CBMiS0FVX3lxTFBnVnkzaGpHb3lDWjlNVE1VQzZSU0N4c2NycHB0czdCQXl4MmJ5N2JMZ3phcHNNVXNCTGt5Z3hpQl8yQlNubEZXRGlmQdIBUEFVX3lxTFBJbnhzZGdwT1FBTWlEUkR3TG5YSTgzTGhuRTQwZnFmSy1ka1RDaDdGdU1SYk1fU05DSkVlUk1DSlZWVFFwTjNKNHhWeVE3VWpy?oc=5",
+        "source": "iPhone Mania",
+        "published": "2026-05-06T07:00:00+00:00",
+        "query": "Mac mini 値上げ"
+      },
+      {
+        "title": "最安Macよ、さようなら：AppleがMac miniの開始価格を799ドルに引き上げ - آي-فون إسلام",
+        "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPOVB6MVBWcGxHMW1STmg0MEZlay1TQkVMZnZXMVlIR29SX0pPS0dtWjk0elFVRjl1VWo4bEFTZTAtQ3NuM3c4bFBDaWdhdWRmWjBpNDFFMXFKVjhwVEtXMDdKaG9DQlZENUJCd3hXc050QUhUeThfWXktYTB3ZWRReFRJNDNQQl90aW1LSkpsZDlqLUJIeXlxdkhLU2tGdGRzWWEtUzJnYWpMVFF5?oc=5",
+        "source": "آي-فون إسلام",
+        "published": "2026-05-05T09:29:01+00:00",
+        "query": "Mac mini 価格改定"
+      },
+      {
+        "title": "「最も手頃なMac」が消えた…AI特需で、Mac miniの最安599ドルモデルが消滅し実質的な値上げに（海外） - Yahoo!ニュース",
+        "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxPVktJWl93OTR6d1hralZWWGsyZGZib194dkpqSWZDZTM1Vng3ekJXdm1rWWRFT0NSMk5hSVBYekZUUF9ZbTljYXA2Qm0yMXV5MHUycmdwTXBNRzN2R2xvaXc2anZvRWxLekpFMDBYR2VVck5oSUtTNHc3SDg5RzlGME9hQURFcTBYRC1hQWhR?oc=5",
+        "source": "Yahoo!ニュース",
+        "published": "2026-05-04T22:10:01+00:00",
+        "query": "Mac mini 値上げ"
+      },
+      {
+        "title": "「最も手頃なMac」が消えた…AI特需で、Mac miniの最安599ドルモデルが消滅し実質的な値上げに - Business Insider Japan",
+        "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxQRnF2TjhBNXpUSWFJOE1MTG0yNExoQjNUU2J5RDdNTk4tMGsxWFZxSVQ3eW5PaTFqVVFkajZMWDBQNC14Tk1nVW44Q3puekhraFhFdVFONWpfeHE4TVExUnVlREZsS3VTU04wX1JOMjVIVWdEZU1nc2tKNG85OXgwcUl3?oc=5",
+        "source": "Business Insider Japan",
+        "published": "2026-05-04T07:00:00+00:00",
+        "query": "Mac mini 値上げ"
+      },
+      {
+        "title": "「Mac mini」一部モデルは注文できず入手困難に 背景にAI需要か（山口健太） - エキスパート - Yahoo!ニュース",
+        "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxNQlNxSks2V0pQUmE0M1ZGQ0NjbUdGT29KYkk4VnIyRml5ZzVkM2ptZlFZVmR4ZUk2ZHhiV2pIY2cxR0VScF9QTUxrTTZkNFN1bllEaWlOZjNROEVnd2hBUG9ySjRoZE9pbUhiSzJ1Wk5IQTd3TEhQSG5xaERXY1ZjMVVFTEpOV0Ra?oc=5",
+        "source": "Yahoo!ニュース",
+        "published": "2026-05-04T07:00:00+00:00",
+        "query": "Mac mini M4"
+      },
+      {
+        "title": "アップル、「Mac mini」最低価格引き上げ－AIブームで在庫不足影響 - Bloomberg.com",
+        "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTFA3WU5hdWdwOHNoa1B1cVZDSUZFamxPRXdsX2I1ODBzSWdKSk56QzJQTXNTZElhSHZSVUl0SWFqOVloNHBOVFdrVzA4TDNNenhFaUtvcmRYeWlKdUdEZjNCT3hRdS13alpHTUxpOWhXMUpYZGY0ZlVv?oc=5",
+        "source": "Bloomberg.com",
+        "published": "2026-05-03T07:00:00+00:00",
+        "query": "Mac mini M4 在庫"
+      },
+      {
+        "title": "Mac mini、米国で最小構成モデルが完全在庫切れ。日本でも配送は6月以降に - ゴリミー",
+        "url": "https://news.google.com/rss/articles/CBMiREFVX3lxTFBRWkU4MFVERlpYVHcxWkxTb2E2ZlNicFFlb01VclA2YzRuenNJT1hZOFY0VURabmlLUnBKV2ZOQy1lYXpj?oc=5",
+        "source": "ゴリミー",
+        "published": "2026-05-02T07:00:00+00:00",
+        "query": "Mac mini M4 在庫"
+      },
+      {
+        "title": "Mac mini、注文しても届くのは夏以降。最大18週間待ちの異常事態 - ゴリミー",
+        "url": "https://news.google.com/rss/articles/CBMiREFVX3lxTE5HYWw3czhOYm9JUFM1S3NTTE5tUThlWFAxUF9UbFIzUEpHM3hzQTI1aklXNkVubUtCSzdaNmhidE5xYXBH?oc=5",
+        "source": "ゴリミー",
+        "published": "2026-05-02T07:00:00+00:00",
+        "query": "Mac mini M4 在庫"
+      },
+      {
+        "title": "Mac miniとMac Studio、品薄は数カ月続く見込み。在庫復活後は値上げの恐れも - ゴリミー",
+        "url": "https://news.google.com/rss/articles/CBMiREFVX3lxTE9NTl94LVI0X3VfcnF1M1Y3bThTZDNCTmphU2hkaVNuY3hYVGNUaExiaEpmSTQ0VmJEaFlkNFl4V2hVT2pp?oc=5",
+        "source": "ゴリミー",
+        "published": "2026-05-02T07:00:00+00:00",
+        "query": "Mac mini 値上げ"
+      },
+      {
+        "title": "Mac mini、256GBモデルが姿を消す。最小構成は124,800円スタートに - ゴリミー",
+        "url": "https://news.google.com/rss/articles/CBMiREFVX3lxTE96OGtqR2dfeU80WmI5aFdONnB5ZmJZU2JZR25rLUJ6NEoxWk9abHpLRzJBMnlPR3VqTEtIQ25BLWJYUmlw?oc=5",
+        "source": "ゴリミー",
+        "published": "2026-05-02T07:00:00+00:00",
+        "query": "Mac mini 値上げ"
+      },
+      {
+        "title": "速報：Mac miniの整備済製品在庫が大量復活！256GBモデルが80,800円から - ゴリミー",
+        "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE93bkRsTFcxczZFdGdYZkctQ01kUjdrendQODFvdE10SzJYeUpiSE10LUxhWEdRbkc4dnNCeW0wcGNzSm5mMWtWakhwd29oRTZDSFIzNVFGclU?oc=5",
+        "source": "ゴリミー",
+        "published": "2026-05-02T07:00:00+00:00",
+        "query": "Apple 整備済 Mac mini"
+      },
+      {
+        "title": "Mac miniとMac Studioが在庫薄。CEO自ら｢需要と供給のバランスがとれるのは数カ月後｣とコメント - ギズモード・ジャパン",
+        "url": "https://news.google.com/rss/articles/CBMiY0FVX3lxTFA5ckVGM0x5eEZRMmR0Zm9TUkE3SEp1R0s2MnhVMV9yeTBaQlAxUVZJd0dUNk9mdEx3YnVnY1hqUV9Qc3NoZVBKdDRaM0sxMUxHRmwyVnpURkJQalI2NUpoQXcwVQ?oc=5",
+        "source": "ギズモード・ジャパン",
+        "published": "2026-05-01T07:00:00+00:00",
+        "query": "Mac mini M4 在庫"
+      },
+      {
+        "title": "ベースモデルのM4 Mac mini、国内外で品切れ。需要増とメモリ不足が原因か？ - すまほん!! - すまほん!!",
+        "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE9Ic2dSMFpYbkxvY3pCVW9WanNRQ0pscUFuT2tOd0x3LW1NMklBRE9xTE93cVlTTVhDZXgtYTYwTklib3ZDSERDUk92WUw5d3prTmQyNG12MEw1RlZpTWNraW5qYWXSAWpBVV95cUxQWXJ6N2hiT0xxanppNnFSOS1fbHFjdi1sVXUtVXZrZ3o2bEFJWHg2aVlELUpUdjJvcHE1RFZ3d1k0T3FXTmhYZkowb0xUMld5OHFOQzRtRzY1VjNzTDJiNVhHMjd6Q29mbGp3?oc=5",
+        "source": "すまほん!!",
+        "published": "2026-04-29T07:00:00+00:00",
+        "query": "Mac mini M4 在庫"
+      },
+      {
+        "title": "アップルのMac miniに在庫切れが発生 ローカルAI需要が原因か（アスキー） - Yahoo!ニュース",
+        "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTFBiWjB6X19MSnVZZjBscGtUSWdPQ1BVQlJqRFJnNVFaZUVoZDlOOU8tdURMNkpVZElIeWM5TlRXWEZibkZCcTZCTEdQY0VMWFVhWkVkbFYzQ0c3c19fM3VSNjNuT2xZUklDVkVTMWNlXzFUUlA4YWhkQURSOHA3bEE?oc=5",
+        "source": "Yahoo!ニュース",
+        "published": "2026-04-28T07:00:00+00:00",
+        "query": "Mac mini M4 在庫"
+      },
+      {
+        "title": "アップルのMac miniに在庫切れが発生 ローカルAI需要が原因か - ASCII.jp",
+        "url": "https://news.google.com/rss/articles/CBMiVEFVX3lxTFBVcUx3eGREcTRmOWtUM2RhbmVtVTJtZGZsWlFGSW81RC1YdS1IUGhIekpycmh5NGo3ZmJ4SG5zaVhFSENqWnhiUUF4RjVTcmRrd3hjbw?oc=5",
+        "source": "ASCII.jp",
+        "published": "2026-04-28T07:00:00+00:00",
+        "query": "Mac mini M4"
+      },
+      {
+        "title": "品薄のMac mini、Apple整備済製品でいきなり「在庫あり」。31モデルが一気に補充され68モデルが購入可能に - ゴリミー",
+        "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE5mX1lKMHVZTmp0SU9DUFM4UlVOdGFRdTdSUlNYZ3FtWVJacmlkQjN3eWVTZE9kck5DR0pISWZkYjlzQml6T1dTTE5wMEhyVWV4TVczcmZ4bGg?oc=5",
+        "source": "ゴリミー",
+        "published": "2026-04-28T07:00:00+00:00",
+        "query": "Apple 整備済 Mac mini"
+      },
+      {
+        "title": "Apple、M4 Mac mini基本モデルが購入不可 デスクトップMacに供給懸念 - 디지털투데이",
+        "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxNY0pPTlhZNUVzRmZheWNhUXd4UmFZcDFwTXZ6QjQ5WTE5RmMxNGRlOTMwdUV6NGFkNVQzRWdVM3FsQWpTRlR0dXAwb1NPLThkWjZVSkNJSnF4X3QtRHJ2eVhIME5sdlNLdndhMFZ4QlFiU1JwLTl5Ry1Md0x2aF90Z05BNTRWYWxEbHBSY0cxZHZocVJuUWRRYWRHcTFUYzNpWUE0dTdmeFNvaGc4UXc?oc=5",
+        "source": "디지털투데이",
+        "published": "2026-04-23T07:00:00+00:00",
+        "query": "Mac mini M4 在庫"
+      },
+      {
+        "title": "Mac miniベースモデルが国内外で在庫切れ──M5登場前の品薄？それとも需要急増？ - Smart Watch Life",
+        "url": "https://news.google.com/rss/articles/CBMiTEFVX3lxTE5jdEIxck1PVnNLTkp2RHd4a1IzMFRUWmd3NnBTb001Zy1sWURRZkcyUkt4bXJfWjJhd0lTNjhoR1BGdzhzLTBUcWpqelo?oc=5",
+        "source": "Smart Watch Life",
+        "published": "2026-04-23T00:15:13+00:00",
+        "query": "Mac mini M4 在庫"
+      },
+      {
+        "title": "Apple整備済Mac、一気に50モデル追加で77製品が最大15%オフ｜M5 MacBook Proも登場 - ゴリミー",
+        "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE9nOEZWTzNWNFE0aWxxcWhoakpFUk92Rm1JMzNYWVhuS2RCWXFKOElfUHItOVYxWkhDajdvcDhRWUp2cmhKa1F0NG90cXp4Qm83Q0tFU1EzTFI?oc=5",
+        "source": "ゴリミー",
+        "published": "2026-04-21T07:00:00+00:00",
+        "query": "Apple 整備済 Mac mini"
+      },
+      {
+        "title": "Mac miniがApple Storeから姿を消した理由。 - Vietnam.vn",
+        "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE9aaUtEU21HU0dkRFpoa1lZOVlnZjhYOEEwNkxLcnppMW9fcFZ4UmtvLTRJellDV0tHVzR4cmNjM2xyeGEzT0k2UGhZXzYtX0JSYmppbGNFaUd0dzZfcDNxUFBFS2NOZmpJM0NFdFBiZDVrdy0w?oc=5",
+        "source": "Vietnam.vn",
+        "published": "2026-04-19T07:00:00+00:00",
+        "query": "Mac mini M4 在庫"
+      },
+      {
+        "title": "【在庫更新】Apple公式の整備済Macに動き。Mac miniが80,800円〜、MacBook Airも多数あり【2026年3月23日】 - Smart Watch Life",
+        "url": "https://news.google.com/rss/articles/CBMiTEFVX3lxTE9jOXdsS3E4bU5TRmhxTTJfZHlMaldqZzdDVjI0dEtwbFlfa0l3S2haN2RFQlkxc1pyci1xNDB1Nmx6MFZ1MEl5b1JJcVk?oc=5",
+        "source": "Smart Watch Life",
+        "published": "2026-03-23T07:00:00+00:00",
+        "query": "Apple 整備済 Mac mini"
+      }
+    ]
+  }
 }

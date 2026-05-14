@@ -11,6 +11,7 @@ from .notify import post as post_signals
 from .render import render as render_site
 from .scrapers import apple_refurb, iosys
 from .storage import load_history, save_snapshot
+from . import news as news_mod
 from . import watch as watch_mod
 
 
@@ -92,6 +93,12 @@ def cmd_watch(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_news(args: argparse.Namespace) -> int:
+    path, count = news_mod.run()
+    print(f"news saved: {path} ({count} items)")
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="tracker")
     sub = parser.add_subparsers(dest="cmd", required=True)
@@ -110,6 +117,9 @@ def main(argv: list[str] | None = None) -> int:
 
     p_watch = sub.add_parser("watch", help="Sub-daily Apple-refurb watcher (dedup'd alerts)")
     p_watch.set_defaults(func=cmd_watch)
+
+    p_news = sub.add_parser("news", help="Fetch Mac mini related news (Google News RSS)")
+    p_news.set_defaults(func=cmd_news)
 
     args = parser.parse_args(argv)
     return args.func(args)

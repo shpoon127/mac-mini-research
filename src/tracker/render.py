@@ -10,6 +10,7 @@ ROOT = Path(__file__).resolve().parents[2]
 SITE_DIR = ROOT / "site"
 SITE_TEMPLATE = SITE_DIR / "index.html"
 SITE_DATA = SITE_DIR / "data.json"
+NEWS_FILE = ROOT / "data" / "news.json"
 
 
 def _build_payload() -> dict:
@@ -24,6 +25,8 @@ def _build_payload() -> dict:
 
     # Daily minimum price per (source, memory_gb)
     series: dict[str, dict[str, dict[str, int]]] = defaultdict(lambda: defaultdict(dict))
+    # Daily stock count per (source, memory_gb) — 在庫枯渇トレンド可視化用
+    stock: dict[str, dict[str, dict[str, int]]] = defaultdict(lambda: defaultdict(dict))
     for row in history:
         d = row.get("date")
         src = row.get("source")
@@ -35,12 +38,22 @@ def _build_payload() -> dict:
         cur = series[src][key].get(d)
         if cur is None or price < cur:
             series[src][key][d] = price
+        stock[src][key][d] = stock[src][key].get(d, 0) + 1
+
+    news: dict = {}
+    if NEWS_FILE.exists():
+        try:
+            news = json.loads(NEWS_FILE.read_text())
+        except json.JSONDecodeError:
+            news = {}
 
     return {
         "generated_at": latest.get("fetched_at"),
         "today": latest.get("date"),
         "listings": latest.get("listings", []),
         "series": series,
+        "stock": stock,
+        "news": news,
     }
 
 
@@ -51,6 +64,11 @@ def render() -> Path:
     if not SITE_TEMPLATE.exists():
         SITE_TEMPLATE.write_text(_default_template())
     return SITE_TEMPLATE
+
+
+# NOTE: site/index.html がリポジトリにコミットされている前提なので、
+# _default_template はブートストラップ用フォールバック。
+# UI を変える場合は site/index.html を直接編集する。
 
 
 def _default_template() -> str:
