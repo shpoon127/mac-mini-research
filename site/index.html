@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>Mac mini M4 価格トラッカー</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", sans-serif;
+         max-width: 980px; margin: 2rem auto; padding: 0 1rem; color: #222; }
+  h1 { font-size: 1.4rem; }
+  h2 { font-size: 1.1rem; margin-top: 2rem; }
+  .muted { color: #888; font-size: 0.85rem; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.9rem; }
+  th, td { padding: 0.4rem 0.6rem; border-bottom: 1px solid #eee; text-align: left; }
+  th { background: #fafafa; }
+  .source { display: inline-block; padding: 0 0.4rem; border-radius: 4px;
+            font-size: 0.75rem; background: #eef; color: #225; }
+  .empty { padding: 1rem; background: #f7f7f7; border-radius: 6px; color: #666; }
+  canvas { max-height: 320px; }
+</style>
+</head>
+<body>
+  <h1>Mac mini M4 価格トラッカー <span id="today" class="muted"></span></h1>
+  <p class="muted">対象: M4 Mac mini (24GB / 32GB) — 新品 (Apple整備済) / 中古 (イオシス)</p>
+
+  <h2>今日の在庫</h2>
+  <div id="listings"></div>
+
+  <h2>価格推移 (日次最安値)</h2>
+  <canvas id="chart"></canvas>
+
+  <p class="muted" id="generated"></p>
+
+<script>
+async function main() {
+  const data = await fetch('data.json').then(r => r.json());
+  document.getElementById('today').textContent = data.today ? `(${data.today})` : '';
+  document.getElementById('generated').textContent = data.generated_at
+    ? `更新: ${data.generated_at}` : '';
+
+  // listings table
+  const listings = data.listings || [];
+  const root = document.getElementById('listings');
+  if (!listings.length) {
+    root.innerHTML = '<div class="empty">該当する在庫はありません</div>';
+  } else {
+    const rows = listings.map(l => `
+      <tr>
+        <td><span class="source">${l.source}</span></td>
+        <td>${l.memory_gb ?? '?'}GB</td>
+        <td>${l.storage_gb ?? '?'}GB</td>
+        <td>¥${(l.price_jpy ?? 0).toLocaleString()}</td>
+        <td><a href="${l.url}" target="_blank" rel="noopener">${l.title}</a></td>
+      </tr>`).join('');
+    root.innerHTML = `<table>
+      <thead><tr><th>ソース</th><th>メモリ</th><th>ストレージ</th><th>価格</th><th>タイトル</th></tr></thead>
+      <tbody>${rows}</tbody></table>`;
+  }
+
+  // chart: build datasets per (source, memory)
+  const series = data.series || {};
+  const datasets = [];
+  const palette = {
+    apple_refurb_24GB: '#0a84ff', apple_refurb_32GB: '#3399ff',
+    iosys_24GB:        '#ff6b35', iosys_32GB:        '#ffa07a',
+    amazon_24GB:       '#34c759', amazon_32GB:       '#7fdc8a',
+  };
+  const allDates = new Set();
+  for (const src of Object.keys(series)) {
+    for (const mem of Object.keys(series[src])) {
+      const points = series[src][mem];
+      for (const d of Object.keys(points)) allDates.add(d);
+      const label = `${src} ${mem}`;
+      const color = palette[`${src}_${mem}`] || '#888';
+      datasets.push({
+        label, points,
+        borderColor: color, backgroundColor: color, tension: 0.2, spanGaps: true,
+      });
+    }
+  }
+  const dates = [...allDates].sort();
+  for (const ds of datasets) {
+    ds.data = dates.map(d => ds.points[d] ?? null);
+    delete ds.points;
+  }
+
+  new Chart(document.getElementById('chart'), {
+    type: 'line',
+    data: { labels: dates, datasets },
+    options: {
+      responsive: true,
+      interaction: { mode: 'index', intersect: false },
+      scales: { y: { ticks: { callback: v => '¥' + v.toLocaleString() } } },
+    },
+  });
+}
+main();
+</script>
+</body>
+</html>
