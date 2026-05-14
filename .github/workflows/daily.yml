@@ -70,11 +70,11 @@ jobs:
           git push
 
       - if: github.event.inputs.test_notify != 'true'
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
       - if: github.event.inputs.test_notify != 'true'
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: ./site
       - id: deploy
         if: github.event.inputs.test_notify != 'true'
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
