@@ -4,6 +4,11 @@ on:
   schedule:
     - cron: "0 22 * * *"  # 07:00 JST (UTC+9)
   workflow_dispatch:
+    inputs:
+      test_notify:
+        description: "Send a test Slack notification only (skip fetch/render)"
+        required: false
+        default: "false"
 
 permissions:
   contents: write
@@ -30,18 +35,28 @@ jobs:
       - name: Install dependencies
         run: uv sync
 
+      - name: Test Slack notification (manual)
+        if: github.event.inputs.test_notify == 'true'
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: uv run tracker notify --test
+
       - name: Fetch listings
+        if: github.event.inputs.test_notify != 'true'
         run: uv run tracker fetch
 
       - name: Notify Slack on buy signals
+        if: github.event.inputs.test_notify != 'true'
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         run: uv run tracker notify
 
       - name: Render dashboard
+        if: github.event.inputs.test_notify != 'true'
         run: uv run tracker render
 
       - name: Commit data + site
+        if: github.event.inputs.test_notify != 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -49,9 +64,12 @@ jobs:
           git diff --cached --quiet || git commit -m "daily snapshot $(date -u +%F)"
           git push
 
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
+      - if: github.event.inputs.test_notify != 'true'
+        uses: actions/configure-pages@v5
+      - if: github.event.inputs.test_notify != 'true'
+        uses: actions/upload-pages-artifact@v3
         with:
           path: ./site
       - id: deploy
+        if: github.event.inputs.test_notify != 'true'
         uses: actions/deploy-pages@v4

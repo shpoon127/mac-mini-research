@@ -44,7 +44,26 @@ def cmd_fetch(args: argparse.Namespace) -> int:
 
 
 def cmd_notify(args: argparse.Namespace) -> int:
+    from .analyze import BuySignal
     from .storage import LATEST_FILE
+
+    if args.test:
+        signals = [
+            BuySignal(
+                kind="new_window_low",
+                source="iosys",
+                memory_gb=24,
+                title="[TEST] Mac mini M4 (24GB / 512GB SSD) — webhook疎通確認",
+                price_jpy=119800,
+                url="https://example.com/test",
+                prev_low_jpy=124800,
+                window_days=30,
+            )
+        ]
+        print("posting test signal...")
+        post_signals(signals)
+        return 0
+
     if not LATEST_FILE.exists():
         print("no snapshot yet; run `tracker fetch` first", file=sys.stderr)
         return 1
@@ -71,6 +90,7 @@ def main(argv: list[str] | None = None) -> int:
     p_fetch.set_defaults(func=cmd_fetch)
 
     p_notify = sub.add_parser("notify", help="Detect buy signals and post to Slack")
+    p_notify.add_argument("--test", action="store_true", help="send a fabricated signal for webhook smoke test")
     p_notify.set_defaults(func=cmd_notify)
 
     p_render = sub.add_parser("render", help="Render static dashboard into ./site")
