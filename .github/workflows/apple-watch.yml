@@ -1,0 +1,44 @@
+name: apple-watch
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"  # every 15 minutes (GitHub may delay during peak)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: apple-watch
+  cancel-in-progress: true
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v3
+        with:
+          enable-cache: true
+
+      - name: Install dependencies
+        run: uv sync
+
+      - name: Watch Apple refurb (alert on new SKUs)
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: uv run tracker watch
+
+      - name: Commit apple_seen.json if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/apple_seen.json
+          if git diff --cached --quiet; then
+            echo "no inventory change"
+            exit 0
+          fi
+          git pull --rebase origin main
+          git commit -m "apple-watch: update seen SKUs"
+          git push

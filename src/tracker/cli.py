@@ -4,11 +4,14 @@ import argparse
 import json
 import sys
 
+from datetime import date
+
 from .analyze import detect_signals
 from .notify import post as post_signals
 from .render import render as render_site
 from .scrapers import apple_refurb, iosys
 from .storage import load_history, save_snapshot
+from . import watch as watch_mod
 
 
 SCRAPERS = {
@@ -80,6 +83,15 @@ def cmd_render(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_watch(args: argparse.Namespace) -> int:
+    """Sub-daily Apple-refurb watcher: alert only on previously-unseen SKUs."""
+    signals, changed = watch_mod.run(today=date.today().isoformat())
+    print(f"new SKUs: {len(signals)} | state_changed: {changed}")
+    if signals:
+        post_signals(signals)
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="tracker")
     sub = parser.add_subparsers(dest="cmd", required=True)
@@ -95,6 +107,9 @@ def main(argv: list[str] | None = None) -> int:
 
     p_render = sub.add_parser("render", help="Render static dashboard into ./site")
     p_render.set_defaults(func=cmd_render)
+
+    p_watch = sub.add_parser("watch", help="Sub-daily Apple-refurb watcher (dedup'd alerts)")
+    p_watch.set_defaults(func=cmd_watch)
 
     args = parser.parse_args(argv)
     return args.func(args)
