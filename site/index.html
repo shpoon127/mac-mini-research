@@ -4,147 +4,379 @@
 <meta charset="utf-8">
 <title>Mac mini M4 価格トラッカー</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
-  body { font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", sans-serif;
-         max-width: 980px; margin: 2rem auto; padding: 0 1rem; color: #222; }
-  h1 { font-size: 1.4rem; }
-  h2 { font-size: 1.1rem; margin-top: 2rem; }
-  .muted { color: #888; font-size: 0.85rem; }
-  table { border-collapse: collapse; width: 100%; font-size: 0.9rem; }
-  th, td { padding: 0.4rem 0.6rem; border-bottom: 1px solid #eee; text-align: left; }
-  th { background: #fafafa; }
-  .source { display: inline-block; padding: 0 0.4rem; border-radius: 4px;
-            font-size: 0.75rem; background: #eef; color: #225; }
-  .empty { padding: 1rem; background: #f7f7f7; border-radius: 6px; color: #666; }
-  canvas { max-height: 320px; }
-  .news { list-style: none; padding: 0; margin: 0; }
-  .news li { padding: 0.6rem 0; border-bottom: 1px solid #eee; }
-  .news a { color: #225; text-decoration: none; }
-  .news a:hover { text-decoration: underline; }
-  .news .meta { display: block; font-size: 0.75rem; color: #888; margin-top: 0.2rem; }
-  .badge { display: inline-block; font-size: 0.7rem; padding: 0 0.4rem;
-           background: #fef3c7; color: #92400e; border-radius: 3px; margin-right: 0.3rem; }
+  :root { color-scheme: dark; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", sans-serif;
+    background: #0f172a;
+    background-image:
+      radial-gradient(at 0% 0%, rgba(56,189,248,0.08) 0, transparent 50%),
+      radial-gradient(at 100% 0%, rgba(168,85,247,0.08) 0, transparent 50%);
+    min-height: 100vh;
+  }
+  .card {
+    background: rgba(30, 41, 59, 0.7);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(148, 163, 184, 0.1);
+    border-radius: 12px;
+  }
+  .card-title { font-size: 0.75rem; letter-spacing: 0.05em; text-transform: uppercase; color: #94a3b8; }
+  .kpi-value { font-size: 1.8rem; font-weight: 700; color: #f1f5f9; letter-spacing: -0.02em; }
+  .badge { display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 9999px; font-size: 0.7rem; font-weight: 600; }
+  .badge-apple { background: rgba(10,132,255,0.15); color: #60a5fa; }
+  .badge-iosys { background: rgba(255,107,53,0.15); color: #fb923c; }
+  .badge-amazon { background: rgba(52,199,89,0.15); color: #4ade80; }
+  .badge-default { background: rgba(148,163,184,0.15); color: #cbd5e1; }
+  .delta-up { color: #f87171; }
+  .delta-down { color: #4ade80; }
+  table.listings { width: 100%; font-size: 0.875rem; }
+  table.listings th { text-align: left; padding: 0.5rem 0.75rem; color: #94a3b8; font-weight: 500; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid rgba(148,163,184,0.15); }
+  table.listings td { padding: 0.75rem; border-bottom: 1px solid rgba(148,163,184,0.07); color: #e2e8f0; }
+  table.listings tr:hover td { background: rgba(148,163,184,0.04); }
+  a.title-link { color: #e2e8f0; text-decoration: none; }
+  a.title-link:hover { color: #60a5fa; }
+  .news-item { display: flex; gap: 12px; padding: 10px; border-radius: 8px; transition: background 0.15s; text-decoration: none; }
+  .news-item:hover { background: rgba(148,163,184,0.05); }
+  .news-thumb {
+    width: 48px; height: 48px; border-radius: 8px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(135deg, #6366f1, #a855f7);
+    color: white; font-weight: 700; font-size: 1rem; overflow: hidden;
+  }
+  .news-thumb img { width: 60%; height: 60%; object-fit: contain; }
+  .news-featured-thumb {
+    width: 100%; aspect-ratio: 16/9; border-radius: 10px;
+    background: linear-gradient(135deg, #4f46e5, #9333ea, #ec4899);
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-size: 3rem; font-weight: 800;
+    margin-bottom: 12px; overflow: hidden; position: relative;
+  }
+  .news-featured-thumb img { width: 80px; height: 80px; border-radius: 16px; background: white; padding: 8px; object-fit: contain; }
+  .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  canvas { max-height: 280px; }
+  .empty { padding: 1.5rem; text-align: center; color: #64748b; font-size: 0.875rem; }
 </style>
 </head>
-<body>
-  <h1>Mac mini M4 価格トラッカー <span id="today" class="muted"></span></h1>
-  <p class="muted">対象: M4 Mac mini (24GB / 32GB) — 新品 (Apple整備済) / 中古 (イオシス)</p>
+<body class="text-slate-200">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+    <header class="flex items-center justify-between mb-6 flex-wrap gap-2">
+      <div>
+        <h1 class="text-2xl font-bold text-white tracking-tight">Mac mini M4 価格トラッカー</h1>
+        <p class="text-sm text-slate-400 mt-1">M4 Mac mini 24GB / 32GB · 新品(Apple整備済) / 中古(イオシス)</p>
+      </div>
+      <div class="text-right">
+        <div id="today" class="text-sm font-medium text-slate-300"></div>
+        <div id="generated" class="text-xs text-slate-500 mt-0.5"></div>
+      </div>
+    </header>
 
-  <h2>今日の在庫</h2>
-  <div id="listings"></div>
+    <section id="kpis" class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6"></section>
 
-  <h2>価格推移 (日次最安値)</h2>
-  <canvas id="chart"></canvas>
+    <section class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
+      <div class="card p-4 lg:col-span-1">
+        <div class="card-title mb-2">今日のトップニュース</div>
+        <div id="news-featured"></div>
+      </div>
+      <div class="card p-4 lg:col-span-2">
+        <div class="card-title mb-2">最近のニュース</div>
+        <div id="news-list" class="space-y-1"></div>
+      </div>
+    </section>
 
-  <h2>在庫数推移 (日次件数)</h2>
-  <p class="muted">在庫枯渇のトレンド把握用。0 = その日その条件の出品なし。</p>
-  <canvas id="stockChart"></canvas>
+    <section class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
+      <div class="card p-4 lg:col-span-2">
+        <div class="card-title mb-2">価格推移 (日次最安値)</div>
+        <canvas id="priceChart"></canvas>
+      </div>
+      <div class="card p-4 lg:col-span-1">
+        <div class="card-title mb-2">在庫内訳 (本日)</div>
+        <canvas id="stockChart"></canvas>
+      </div>
+    </section>
 
-  <h2>関連ニュース</h2>
-  <p class="muted" id="newsMeta"></p>
-  <ul id="news" class="news"></ul>
+    <section class="card p-4 mb-6">
+      <div class="card-title mb-2">今日の在庫</div>
+      <div id="listings"></div>
+    </section>
 
-  <p class="muted" id="generated"></p>
+    <footer class="text-center text-xs text-slate-600 py-4">mac-mini-research</footer>
+  </div>
 
 <script>
-const PALETTE = {
-  apple_refurb_24GB: '#0a84ff', apple_refurb_32GB: '#3399ff',
-  iosys_24GB:        '#ff6b35', iosys_32GB:        '#ffa07a',
-  amazon_24GB:       '#34c759', amazon_32GB:       '#7fdc8a',
+const PUBLISHER_DOMAINS = {
+  "ゴリミー": "gori.me",
+  "PR TIMES": "prtimes.jp",
+  "ITmedia": "itmedia.co.jp",
+  "ASCII.jp": "ascii.jp",
+  "Impress Watch": "impress.co.jp",
+  "ギズモード・ジャパン": "gizmodo.jp",
+  "iPhone Mania": "iphone-mania.jp",
+  "Business Insider Japan": "businessinsider.jp",
+  "Yahoo!ニュース": "news.yahoo.co.jp",
+  "千葉テレビ放送": "chiba-tv.com",
+  "AppBank": "appbank.net",
+  "Engadget": "engadget.com",
+  "週刊アスキー": "weekly.ascii.jp",
+  "マイナビニュース": "news.mynavi.jp",
+  "Mac Otakara": "macotakara.jp",
+  "GIGAZINE": "gigazine.net",
+  "ねとらぼ": "nlab.itmedia.co.jp",
 };
-
-function buildDatasets(seriesObj) {
-  const datasets = [];
-  const allDates = new Set();
-  for (const src of Object.keys(seriesObj)) {
-    for (const mem of Object.keys(seriesObj[src])) {
-      const points = seriesObj[src][mem];
-      for (const d of Object.keys(points)) allDates.add(d);
-      const label = `${src} ${mem}`;
-      const color = PALETTE[`${src}_${mem}`] || '#888';
-      datasets.push({ label, points, borderColor: color, backgroundColor: color,
-                      tension: 0.2, spanGaps: true });
-    }
-  }
-  const dates = [...allDates].sort();
-  for (const ds of datasets) {
-    ds.data = dates.map(d => ds.points[d] ?? null);
-    delete ds.points;
-  }
-  return { dates, datasets };
+function faviconURL(source) {
+  const d = PUBLISHER_DOMAINS[source];
+  return d ? `https://www.google.com/s2/favicons?domain=${d}&sz=128` : null;
+}
+function escapeHTML(s) {
+  return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function formatYen(n) { return '¥' + Number(n).toLocaleString(); }
+function relTime(iso) {
+  if (!iso) return '';
+  const t = new Date(iso).getTime();
+  const diff = (Date.now() - t) / 1000;
+  if (diff < 3600) return `${Math.max(1, Math.floor(diff/60))}分前`;
+  if (diff < 86400) return `${Math.floor(diff/3600)}時間前`;
+  if (diff < 86400*7) return `${Math.floor(diff/86400)}日前`;
+  return iso.slice(0,10);
+}
+function sourceBadge(src) {
+  const map = { apple_refurb: ['badge-apple','Apple整備済'], iosys: ['badge-iosys','イオシス'], amazon: ['badge-amazon','Amazon'] };
+  const [cls, label] = map[src] || ['badge-default', src];
+  return `<span class="badge ${cls}">${escapeHTML(label)}</span>`;
 }
 
-function renderNews(news) {
-  const root = document.getElementById('news');
-  const meta = document.getElementById('newsMeta');
-  const items = (news && news.items) || [];
-  if (!items.length) {
-    root.innerHTML = '<li class="empty">取得済みのニュースはありません</li>';
+function computeKPIs(data) {
+  const listings = data.listings || [];
+  const series = data.series || {};
+  const minBySrc = {};
+  for (const l of listings) {
+    const s = l.source;
+    if (!s) continue;
+    if (minBySrc[s] == null || l.price_jpy < minBySrc[s]) minBySrc[s] = l.price_jpy;
+  }
+  function deltaFor(src) {
+    const buckets = series[src] || {};
+    const all = {};
+    for (const mem of Object.keys(buckets)) {
+      for (const [d, p] of Object.entries(buckets[mem])) {
+        if (all[d] == null || p < all[d]) all[d] = p;
+      }
+    }
+    const dates = Object.keys(all).sort();
+    if (dates.length < 2) return null;
+    const latest = all[dates[dates.length-1]];
+    const cutoff = new Date(Date.now() - 30*86400000).toISOString().slice(0,10);
+    const past = dates.filter(d => d <= cutoff);
+    const baseDate = past.length ? past[past.length-1] : dates[0];
+    const base = all[baseDate];
+    return { latest, base, diff: latest - base, pct: ((latest - base) / base) * 100 };
+  }
+  return {
+    totalListings: listings.length,
+    appleMin: minBySrc.apple_refurb,
+    iosysMin: minBySrc.iosys,
+    appleDelta: deltaFor('apple_refurb'),
+  };
+}
+
+function renderKPIs(data) {
+  const k = computeKPIs(data);
+  const root = document.getElementById('kpis');
+  const deltaHTML = k.appleDelta
+    ? `<div class="text-xs mt-1 ${k.appleDelta.diff >= 0 ? 'delta-up' : 'delta-down'}">${k.appleDelta.diff >= 0 ? '▲' : '▼'} ${formatYen(Math.abs(k.appleDelta.diff))} (${k.appleDelta.pct.toFixed(1)}%) / 30日</div>`
+    : '<div class="text-xs mt-1 text-slate-500">データ蓄積中</div>';
+  const cards = [
+    { title: '本日の在庫数', value: String(k.totalListings), sub: '全ソース合計', icon: '📦', color: 'from-sky-500 to-blue-600' },
+    { title: 'Apple整備済 最安', value: k.appleMin ? formatYen(k.appleMin) : '—', sub: '本日の在庫', icon: '🍎', color: 'from-indigo-500 to-purple-600' },
+    { title: 'イオシス 最安', value: k.iosysMin ? formatYen(k.iosysMin) : '—', sub: '本日の在庫', icon: '🏷️', color: 'from-orange-500 to-pink-600' },
+    { title: '30日変動 (Apple)', value: k.appleDelta ? formatYen(k.appleDelta.latest) : '—', sub: deltaHTML, icon: '📈', color: 'from-emerald-500 to-teal-600', rawSub: true },
+  ];
+  root.innerHTML = cards.map(c => `
+    <div class="card p-4 relative overflow-hidden">
+      <div class="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br ${c.color} opacity-10 rounded-full -mr-8 -mt-8"></div>
+      <div class="flex items-start justify-between">
+        <div class="card-title">${escapeHTML(c.title)}</div>
+        <div class="text-xl">${c.icon}</div>
+      </div>
+      <div class="kpi-value mt-2">${escapeHTML(c.value)}</div>
+      ${c.rawSub ? c.sub : `<div class="text-xs text-slate-500 mt-1">${escapeHTML(c.sub)}</div>`}
+    </div>
+  `).join('');
+}
+
+function renderNews(data) {
+  const news = (data.news && data.news.items) || [];
+  const featured = document.getElementById('news-featured');
+  const list = document.getElementById('news-list');
+
+  if (!news.length) {
+    featured.innerHTML = '<div class="empty">ニュースなし</div>';
+    list.innerHTML = '';
     return;
   }
-  meta.textContent = news.fetched_at ? `ニュース更新: ${news.fetched_at}` : '';
-  root.innerHTML = items.map(n => {
-    const date = n.published ? n.published.slice(0, 10) : '';
-    const src = n.source ? ` · ${n.source}` : '';
-    const q = n.query ? `<span class="badge">${n.query}</span>` : '';
-    return `<li>${q}<a href="${n.url}" target="_blank" rel="noopener">${n.title}</a>
-            <span class="meta">${date}${src}</span></li>`;
+
+  const top = news[0];
+  const topFavicon = faviconURL(top.source);
+  const topInitial = (top.source || '?').slice(0, 2);
+  featured.innerHTML = `
+    <a href="${escapeHTML(top.url)}" target="_blank" rel="noopener" class="block group">
+      <div class="news-featured-thumb">
+        ${topFavicon
+          ? `<img src="${escapeHTML(topFavicon)}" alt="${escapeHTML(top.source)}" onerror="this.outerHTML='<span>${escapeHTML(topInitial)}</span>'">`
+          : `<span>${escapeHTML(topInitial)}</span>`}
+      </div>
+      <div class="text-xs text-slate-400 flex items-center gap-2">
+        <span class="font-medium text-slate-300">${escapeHTML(top.source || '')}</span>
+        <span>·</span>
+        <span>${escapeHTML(relTime(top.published))}</span>
+      </div>
+      <div class="text-sm font-semibold text-white mt-1 leading-snug group-hover:text-sky-400">${escapeHTML(top.title)}</div>
+    </a>
+  `;
+
+  list.innerHTML = news.slice(1, 7).map(n => {
+    const fav = faviconURL(n.source);
+    const initial = (n.source || '?').slice(0, 2);
+    const thumb = fav
+      ? `<img src="${escapeHTML(fav)}" alt="" onerror="this.parentElement.innerHTML='${escapeHTML(initial)}'">`
+      : escapeHTML(initial);
+    return `
+      <a href="${escapeHTML(n.url)}" target="_blank" rel="noopener" class="news-item">
+        <div class="news-thumb">${thumb}</div>
+        <div class="flex-1 min-w-0">
+          <div class="text-xs text-slate-400 flex items-center gap-2">
+            <span class="font-medium text-slate-300 truncate">${escapeHTML(n.source || '')}</span>
+            <span>·</span>
+            <span class="flex-shrink-0">${escapeHTML(relTime(n.published))}</span>
+          </div>
+          <div class="text-sm text-slate-200 mt-0.5 line-clamp-2 leading-snug">${escapeHTML(n.title)}</div>
+        </div>
+      </a>
+    `;
   }).join('');
 }
 
-async function main() {
-  const data = await fetch('data.json').then(r => r.json());
-  document.getElementById('today').textContent = data.today ? `(${data.today})` : '';
-  document.getElementById('generated').textContent = data.generated_at
-    ? `更新: ${data.generated_at}` : '';
-
-  // listings table
+function renderListings(data) {
   const listings = data.listings || [];
   const root = document.getElementById('listings');
   if (!listings.length) {
     root.innerHTML = '<div class="empty">該当する在庫はありません</div>';
-  } else {
-    const rows = listings.map(l => `
-      <tr>
-        <td><span class="source">${l.source}</span></td>
-        <td>${l.memory_gb ?? '?'}GB</td>
-        <td>${l.storage_gb ?? '?'}GB</td>
-        <td>¥${(l.price_jpy ?? 0).toLocaleString()}</td>
-        <td><a href="${l.url}" target="_blank" rel="noopener">${l.title}</a></td>
-      </tr>`).join('');
-    root.innerHTML = `<table>
-      <thead><tr><th>ソース</th><th>メモリ</th><th>ストレージ</th><th>価格</th><th>タイトル</th></tr></thead>
-      <tbody>${rows}</tbody></table>`;
+    return;
   }
-
-  // price chart
-  const price = buildDatasets(data.series || {});
-  new Chart(document.getElementById('chart'), {
-    type: 'line',
-    data: { labels: price.dates, datasets: price.datasets },
-    options: {
-      responsive: true,
-      interaction: { mode: 'index', intersect: false },
-      scales: { y: { ticks: { callback: v => '¥' + v.toLocaleString() } } },
-    },
-  });
-
-  // stock-count chart
-  const stock = buildDatasets(data.stock || {});
-  new Chart(document.getElementById('stockChart'), {
-    type: 'line',
-    data: { labels: stock.dates, datasets: stock.datasets },
-    options: {
-      responsive: true,
-      interaction: { mode: 'index', intersect: false },
-      scales: { y: { beginAtZero: true, ticks: { precision: 0 } } },
-    },
-  });
-
-  renderNews(data.news);
+  const sorted = [...listings].sort((a,b) => (a.price_jpy||0) - (b.price_jpy||0));
+  const rows = sorted.map(l => `
+    <tr>
+      <td>${sourceBadge(l.source)}</td>
+      <td class="font-medium">${l.memory_gb ?? '?'}GB</td>
+      <td class="text-slate-400">${l.storage_gb ?? '?'}GB</td>
+      <td class="font-semibold text-white">${formatYen(l.price_jpy ?? 0)}</td>
+      <td><a href="${escapeHTML(l.url)}" target="_blank" rel="noopener" class="title-link">${escapeHTML(l.title)}</a></td>
+    </tr>`).join('');
+  root.innerHTML = `<div class="overflow-x-auto"><table class="listings">
+    <thead><tr><th>ソース</th><th>メモリ</th><th>SSD</th><th>価格</th><th>タイトル</th></tr></thead>
+    <tbody>${rows}</tbody></table></div>`;
 }
-main();
+
+function renderPriceChart(data) {
+  const series = data.series || {};
+  const palette = {
+    apple_refurb_24GB: '#60a5fa', apple_refurb_32GB: '#a78bfa',
+    iosys_24GB:        '#fb923c', iosys_32GB:        '#fbbf24',
+    amazon_24GB:       '#4ade80', amazon_32GB:       '#34d399',
+  };
+  const datasets = [];
+  const allDates = new Set();
+  for (const src of Object.keys(series)) {
+    for (const mem of Object.keys(series[src])) {
+      const points = series[src][mem];
+      for (const d of Object.keys(points)) allDates.add(d);
+      datasets.push({
+        label: `${src} ${mem}`,
+        _points: points,
+        borderColor: palette[`${src}_${mem}`] || '#94a3b8',
+        backgroundColor: (palette[`${src}_${mem}`] || '#94a3b8') + '20',
+        tension: 0.3, spanGaps: true, borderWidth: 2, pointRadius: 3, fill: false,
+      });
+    }
+  }
+  const dates = [...allDates].sort();
+  for (const ds of datasets) {
+    ds.data = dates.map(d => ds._points[d] ?? null);
+    delete ds._points;
+  }
+  const ctx = document.getElementById('priceChart');
+  if (!datasets.length) {
+    ctx.replaceWith(Object.assign(document.createElement('div'), { className: 'empty', textContent: 'データ蓄積中' }));
+    return;
+  }
+  new Chart(ctx, {
+    type: 'line',
+    data: { labels: dates, datasets },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: { legend: { labels: { color: '#cbd5e1', boxWidth: 12, font: { size: 11 } } } },
+      scales: {
+        x: { ticks: { color: '#64748b', font: { size: 10 } }, grid: { color: 'rgba(148,163,184,0.05)' } },
+        y: { ticks: { color: '#64748b', callback: v => '¥' + (v/1000).toFixed(0) + 'k', font: { size: 10 } }, grid: { color: 'rgba(148,163,184,0.08)' } },
+      },
+    },
+  });
+}
+
+function renderStockChart(data) {
+  const stock = data.stock || {};
+  const ctx = document.getElementById('stockChart');
+  const allDates = new Set();
+  for (const src of Object.keys(stock)) for (const mem of Object.keys(stock[src])) for (const d of Object.keys(stock[src][mem])) allDates.add(d);
+  const dates = [...allDates].sort();
+  if (!dates.length) {
+    ctx.replaceWith(Object.assign(document.createElement('div'), { className: 'empty', textContent: 'データ蓄積中' }));
+    return;
+  }
+  const today = dates[dates.length-1];
+  const labels = [], values = [], colors = [];
+  const palette = {
+    apple_refurb_24GB: '#60a5fa', apple_refurb_32GB: '#a78bfa',
+    iosys_24GB:        '#fb923c', iosys_32GB:        '#fbbf24',
+    amazon_24GB:       '#4ade80', amazon_32GB:       '#34d399',
+  };
+  for (const src of Object.keys(stock)) {
+    for (const mem of Object.keys(stock[src])) {
+      const v = stock[src][mem][today];
+      if (v) { labels.push(`${src} ${mem}`); values.push(v); colors.push(palette[`${src}_${mem}`] || '#94a3b8'); }
+    }
+  }
+  if (!values.length) {
+    ctx.replaceWith(Object.assign(document.createElement('div'), { className: 'empty', textContent: '本日の在庫なし' }));
+    return;
+  }
+  new Chart(ctx, {
+    type: 'doughnut',
+    data: { labels, datasets: [{ data: values, backgroundColor: colors, borderColor: '#0f172a', borderWidth: 2 }] },
+    options: {
+      responsive: true, maintainAspectRatio: false, cutout: '65%',
+      plugins: { legend: { position: 'bottom', labels: { color: '#cbd5e1', boxWidth: 10, font: { size: 11 }, padding: 8 } } },
+    },
+  });
+}
+
+async function main() {
+  const data = await fetch('data.json').then(r => r.json());
+  document.getElementById('today').textContent = data.today ? `${data.today}` : '';
+  document.getElementById('generated').textContent = data.generated_at ? `更新: ${data.generated_at}` : '';
+  renderKPIs(data);
+  renderNews(data);
+  renderListings(data);
+  renderPriceChart(data);
+  renderStockChart(data);
+}
+main().catch(e => {
+  console.error(e);
+  document.body.insertAdjacentHTML('beforeend', `<pre style="color:#f87171;padding:1rem;">${e}</pre>`);
+});
 </script>
 </body>
 </html>
