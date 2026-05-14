@@ -2,7 +2,7 @@ name: apple-watch
 
 on:
   schedule:
-    - cron: "*/15 * * * *"  # every 15 minutes (GitHub may delay during peak)
+    - cron: "0 * * * *"  # hourly (low-frequency personal watcher — see README)
   workflow_dispatch:
 
 permissions:
