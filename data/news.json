@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-05-14T22:25:23+00:00",
+  "fetched_at": "2026-05-14T22:53:57+00:00",
   "queries": [
     "Mac mini M4 在庫",
     "Mac mini 値上げ",
@@ -35,6 +35,13 @@
       "source": "ゴリミー",
       "published": "2026-05-12T02:46:42+00:00",
       "query": "Mac mini M4"
+    },
+    {
+      "title": "【西田宗千佳のイマトミライ】Switch 2値上げからMac mini不足まで 「AIエージェント」シフトと演算爆発 | チバテレ＋プラス - 千葉テレビ放送",
+      "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE1CcUxqMmc3cmw2X1FEbzd5RW41c2YteHNYRVdHd2hGb0tjUmdSdEthb0M1UWdXTW1qQ09uSVBuNWY2NHg3bGgxTnFmMnprblgxZ0g0WXJ0VnZNNFhxampN0gFkQVVfeXFMTTFpbl9JR1dqMDBYaTQwSjI1S29FR2lrN0c3emVYU2xPZkNtdEZCSHc4Z0VUbkxibHpwRWU0dHdTQ2hEd003alI4Q3RIUFJtaFRkcXkwemJ4bExiNDVxUkhXYkFTRw?oc=5",
+      "source": "千葉テレビ放送",
+      "published": "2026-05-11T02:55:27+00:00",
+      "query": "Mac mini 値上げ"
     },
     {
       "title": "Switch 2値上げからMac mini不足まで 「AIエージェント」シフトと演算爆発【西田宗千佳のイマトミライ】 - Impress Watch",
@@ -107,13 +114,6 @@
       "query": "Mac mini M4"
     },
     {
-      "title": "最も価格の安いMac mini M4は、一夜にして37%の値上がりとなった。 - Vietnam.vn",
-      "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxQMUdiMFJHSU1xX0pXU1V6OF96RjBDejByVkRJbTJRdmwyNy1fejBkTUstMVZOdHR3cVdXdHpIU1VGNUtqLXMzNkZsQ3Jma0RHcXptQ1RXblFlOVFSZjVrWVA0cUhDMHU3T0JEdHVFTlNaNzZCcnktY3FwbGtUU3RIMA?oc=5",
-      "source": "Vietnam.vn",
-      "published": "2026-05-03T08:59:39+00:00",
-      "query": "Mac mini 値上げ"
-    },
-    {
       "title": "アップル、「Mac mini」最低価格引き上げ－AIブームで在庫不足影響 - Bloomberg.com",
       "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTFA3WU5hdWdwOHNoa1B1cVZDSUZFamxPRXdsX2I1ODBzSWdKSk56QzJQTXNTZElhSHZSVUl0SWFqOVloNHBOVFdrVzA4TDNNenhFaUtvcmRYeWlKdUdEZjNCT3hRdS13alpHTUxpOWhXMUpYZGY0ZlVv?oc=5",
       "source": "Bloomberg.com",
@@ -147,13 +147,6 @@
       "source": "ゴリミー",
       "published": "2026-05-02T07:00:00+00:00",
       "query": "Apple 整備済 Mac mini"
-    },
-    {
-      "title": "Mac miniの256GBモデルが販売終了か——最低価格が599ドルから799ドルに値上がり - Smart Watch Life",
-      "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTE9ZNm9NSTUtTzhYdzY5N29YdWN2THNLd0pwOW9tNktpUXhKc2hKUnVINHBYMGdoNmVHdFZKT1dpZmNVdU55bFRLdFRibHA5MlBtajZIbmIzTE5CMUhhck05ZXhxbjMxQTV2VVZtNk9oSGZ0N2U4TUlLbkd1OGNXdw?oc=5",
-      "source": "Smart Watch Life",
-      "published": "2026-05-01T23:43:32+00:00",
-      "query": "Mac mini 価格改定"
     },
     {
       "title": "Mac miniとMac Studioが在庫薄。CEO自ら｢需要と供給のバランスがとれるのは数カ月後｣とコメント - ギズモード・ジャパン",
@@ -198,6 +191,13 @@
       "query": "Mac mini M4 在庫"
     },
     {
+      "title": "Apple整備済Mac、一気に50モデル追加で77製品が最大15%オフ｜M5 MacBook Proも登場 - ゴリミー",
+      "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE9nOEZWTzNWNFE0aWxxcWhoakpFUk92Rm1JMzNYWVhuS2RCWXFKOElfUHItOVYxWkhDajdvcDhRWUp2cmhKa1F0NG90cXp4Qm83Q0tFU1EzTFI?oc=5",
+      "source": "ゴリミー",
+      "published": "2026-04-21T07:00:00+00:00",
+      "query": "Apple 整備済 Mac mini"
+    },
+    {
       "title": "Mac miniがApple Storeから姿を消した理由。 - Vietnam.vn",
       "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE9aaUtEU21HU0dkRFpoa1lZOVlnZjhYOEEwNkxLcnppMW9fcFZ4UmtvLTRJellDV0tHVzR4cmNjM2xyeGEzT0k2UGhZXzYtX0JSYmppbGNFaUd0dzZfcDNxUFBFS2NOZmpJM0NFdFBiZDVrdy0w?oc=5",
       "source": "Vietnam.vn",
@@ -205,18 +205,18 @@
       "query": "Mac mini M4 在庫"
     },
     {
+      "title": "【徹底比較】Mac mini向けモニターのおすすめ人気ランキング【2026年3月】 - マイベスト",
+      "url": "https://news.google.com/rss/articles/CBMiPkFVX3lxTE05U0t0VjA1djFsWXgtanBYcVIwU3doYmhjbURmeEZlYjExMVducUxOVHdXZXVyZVhkeDBEelVR?oc=5",
+      "source": "マイベスト",
+      "published": "2026-03-31T07:00:00+00:00",
+      "query": "Mac mini M4"
+    },
+    {
       "title": "【在庫更新】Apple公式の整備済Macに動き。Mac miniが80,800円〜、MacBook Airも多数あり【2026年3月23日】 - Smart Watch Life",
       "url": "https://news.google.com/rss/articles/CBMiTEFVX3lxTE9jOXdsS3E4bU5TRmhxTTJfZHlMaldqZzdDVjI0dEtwbFlfa0l3S2haN2RFQlkxc1pyci1xNDB1Nmx6MFZ1MEl5b1JJcVk?oc=5",
       "source": "Smart Watch Life",
       "published": "2026-03-23T07:00:00+00:00",
       "query": "Apple 整備済 Mac mini"
-    },
-    {
-      "title": "もしかして新型出る？ Mac miniなど一部Apple製品の納期が… - ギズモード・ジャパン",
-      "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE1RTGt3Um50WHJqdF85TWFoSDUycjBtM0J3YVY3TjBLTjZTZkNEWmRPalRiOHJkQmFabGtsSmRFNUVmb1lCdktuMy16N29yakJoUGM3dW16S1B6aHQzYm94R28xcHJVNUtEemY0?oc=5",
-      "source": "ギズモード・ジャパン",
-      "published": "2026-03-19T07:00:00+00:00",
-      "query": "Mac mini M4 在庫"
     }
   ]
 }
