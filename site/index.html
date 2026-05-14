@@ -366,7 +366,16 @@ function renderStockChart(data) {
 async function main() {
   const data = await fetch('data.json').then(r => r.json());
   document.getElementById('today').textContent = data.today ? `${data.today}` : '';
-  document.getElementById('generated').textContent = data.generated_at ? `更新: ${data.generated_at}` : '';
+  const fmtJst = (iso) => {
+    const d = new Date(iso);
+    if (Number.isNaN(d.getTime())) return iso;
+    const p = new Intl.DateTimeFormat('ja-JP', {
+      timeZone: 'Asia/Tokyo', year: 'numeric', month: '2-digit', day: '2-digit',
+      hour: '2-digit', minute: '2-digit', hour12: false,
+    }).formatToParts(d).reduce((a, x) => (a[x.type] = x.value, a), {});
+    return `${p.year}-${p.month}-${p.day} ${p.hour}:${p.minute} JST`;
+  };
+  document.getElementById('generated').textContent = data.generated_at ? `更新: ${fmtJst(data.generated_at)}` : '';
   renderKPIs(data);
   renderNews(data);
   renderListings(data);

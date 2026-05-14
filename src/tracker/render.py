@@ -110,8 +110,17 @@ def _default_template() -> str:
 async function main() {
   const data = await fetch('data.json').then(r => r.json());
   document.getElementById('today').textContent = data.today ? `(${data.today})` : '';
+  const fmtJst = (iso) => {
+    const d = new Date(iso);
+    if (Number.isNaN(d.getTime())) return iso;
+    const parts = new Intl.DateTimeFormat('ja-JP', {
+      timeZone: 'Asia/Tokyo', year: 'numeric', month: '2-digit', day: '2-digit',
+      hour: '2-digit', minute: '2-digit', hour12: false,
+    }).formatToParts(d).reduce((a, p) => (a[p.type] = p.value, a), {});
+    return `${parts.year}-${parts.month}-${parts.day} ${parts.hour}:${parts.minute} JST`;
+  };
   document.getElementById('generated').textContent = data.generated_at
-    ? `更新: ${data.generated_at}` : '';
+    ? `更新: ${fmtJst(data.generated_at)}` : '';
 
   // listings table
   const listings = data.listings || [];
